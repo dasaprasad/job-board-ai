@@ -9,16 +9,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)
-            throws Exception {
+	@Bean
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	    http
+	        .csrf(csrf -> csrf.disable())
+	        .authorizeHttpRequests(auth -> auth
+	            .anyRequest().permitAll()
+	        );
 
-        http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth ->
-                auth.anyRequest().permitAll())
-            .httpBasic(Customizer.withDefaults());
-
-        return http.build();
-    }
+	    return http.build();
+	}
 }
