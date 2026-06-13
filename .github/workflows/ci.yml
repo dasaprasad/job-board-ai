@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  backend:
+    backend:
     runs-on: ubuntu-latest
 
     defaults:
@@ -21,7 +21,11 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - run: ./mvnw clean package -DskipTests
+      - name: Make Maven wrapper executable
+        run: chmod +x mvnw
+
+      - name: Build backend
+        run: ./mvnw clean package -DskipTests
 
   frontend:
     runs-on: ubuntu-latest
